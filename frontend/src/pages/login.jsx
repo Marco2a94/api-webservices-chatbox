@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { userContext} from '../context/userContext';
 
 function Login() {
-  const { setUser } = userConext();
+  const { setUser } = userContext();
   const [username, setUsername] = useState('');
   const navigate = useNavigate();
 
