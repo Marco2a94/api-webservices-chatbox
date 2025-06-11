@@ -1,32 +1,30 @@
-import React, { userContext, useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext} from '../context/userContext';
+import { UserContext } from '../context/userContext';
 
 function Login() {
-  const { setUser } = userContext(UserContext);
-  const [username, setUsername] = useState('');
+  const { setUsername } = useContext(UserContext); // ✅ ici c'est correct
+  const [pseudo, setPseudo] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (username.trim()) {
-      setUser({ username });
-      navigate('/chat');
-    } else {
-      alert('Please enter a username');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (pseudo.trim()) {
+      setUsername(pseudo);
+      navigate('/chatroom');
     }
   };
 
   return (
-    <div className="login-container">
-      <h1>Login</h1>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Enter your username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Entre ton pseudo"
+        value={pseudo}
+        onChange={(e) => setPseudo(e.target.value)}
       />
-      <button onClick={handleLogin}>Login</button>
-    </div>
+      <button type="submit">Entrer</button>
+    </form>
   );
 }
 
